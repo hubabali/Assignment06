@@ -1,0 +1,22 @@
+name: Run Playwright Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Maven tests
+        run: mvn -B test
